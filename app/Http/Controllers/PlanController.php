@@ -30,7 +30,17 @@ class PlanController extends Controller
         // dd($plan);
         // dd($request->plan, $plan->stripe_plan, $request->token );
         $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
-                        ->create($request->token);
+            ->create($request->token);
+        if ($subscription) {
+            $emailData = [
+                'name' => auth()->user()->name,
+                'email' => 'faizanraza527@gmail.com',
+                'html' => view('mail',get_defined_vars())->render(),
+                'subject' => 'Subscription Mail',
+            ];
+
+            email($emailData);
+        }
 
         return view("subscription_success");
     }

@@ -11,6 +11,12 @@
                     <div class="alert alert-success">
                         Subscription purchase successfully!
                     </div>
+                    @if (session('success'))
+
+                    <div class="alert alert-success">
+                        {{$message}}
+                    </div>
+                    @endif
 
                 </div>
             </div>
